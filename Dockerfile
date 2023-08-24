@@ -48,13 +48,14 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/intel
 
-ARG SGX_SDK_VERSION=2.20
-ARG SGX_SDK_INSTALLER=sgx_linux_x64_sdk_2.20.100.4.bin
+ARG SGX_SDK_VERSION=2.21
+ARG SGX_SDK_INSTALLER=sgx_linux_x64_sdk_2.21.100.1.bin
 
 # Install Intel SGX SDK
 RUN curl -fsSLo $SGX_SDK_INSTALLER https://download.01.org/intel-sgx/sgx-linux/$SGX_SDK_VERSION/distro/ubuntu22.04-server/$SGX_SDK_INSTALLER \
     && chmod +x  $SGX_SDK_INSTALLER \
     && echo "yes" | ./$SGX_SDK_INSTALLER \
-    && rm $SGX_SDK_INSTALLER
+    && rm $SGX_SDK_INSTALLER \
+    && rm /etc/apt/sources.list.d/intel-sgx.list
 
 WORKDIR /root
